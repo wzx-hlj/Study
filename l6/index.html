@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <red  ref="aa" size="33px">Sb</red>
+        <red ref="bb">Roger</red>
+        <red ref="cc">Ace</red>
+        <div ref="dd">Doctor</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/red.js"></script>
+    <script>
+       
+        new Vue({
+            el: "#app",
+            mounted() {
+                // console.log(this.$children)
+                this.$refs.dd.style.color='green'
+            },
+          
+        })
+
+    </script>
+</body>
+
+</html>

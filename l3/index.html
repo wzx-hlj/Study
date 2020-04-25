@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .container {
+            width: 1000px;
+            display: flex;
+            margin: 100px auto;
+        }
+
+        .pricelist {
+            display: flex;
+            flex-wrap: wrap;
+            padding-left: 20px;
+        }
+
+        .pricelist li {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            user-select: none;
+            border-radius: 5px;
+        }
+
+        .pricelist li.active {
+            background: orangered;
+            color: #fff;
+        }
+        [v-cloak]{
+            display: none;
+        }
+        .counter{
+            display: flex;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 0 20px;
+        }
+        .counter button{
+            width: 30px;
+            border: none;
+            outline: none;
+        }
+        .counter input{
+            border: none;
+            outline: none;
+            width: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="container">
+            <img src="https://img.alicdn.com/bao/uploaded/https://img.alicdn.com/imgextra/i4/2251059038/O1CN01QedTp12GdSE17VuKI_!!2251059038.jpg_q60.jpg_.webp"
+                alt="">
+            <div style="padding: 0 20px;">
+                <h2>
+                    【佛山】蔡依林 Ugly Beauty 2020 世界巡回演唱会佛山站
+                </h2>
+                <div style="padding:20px 0;">时间：2020.04.11 周六 19:30</div>
+                <div>场馆：佛山市 | 佛山国际体育文化演艺中心</div>
+                <div style="display: flex;padding: 20px 0;">
+                    <div style="padding-top: 10px;">票档</div>
+                    <ul class="pricelist">
+                        <li @click="activeIndex=i" :class="{active:activeIndex===i}" v-for="(item,i) in pricelist">
+                            {{item}}
+                        </li>
+
+                    </ul>
+                </div>
+                <div>
+                    <div style="display: flex;padding: 20px 0;">
+                        <div style="padding-top:10px;">数量</div>
+                        <div class="counter">
+                            <button @click="count--" :disabled="count===1">-</button>
+                            <input type="text" style="height: 30px;" v-model="count">
+                            <button @click="count++">+</button>
+                        </div>
+                        <div v-show="count===3">限购3张</div>
+                    </div>  
+                </div>
+                <h2>¥{{totalPrice | fixed2}}/${{totalPriceus | fixed2}}</h2>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./utils/filter.js"></script>
+    <script>
+       
+        new Vue({
+            el: "#app",
+           
+            computed: {
+                totalPrice(){
+                    return this.count*this.pricelist[this.activeIndex]
+
+                },
+                totalPriceus(){
+                    return this.totalPrice/6.9
+                }
+            },
+            watch: {
+                activeIndex(){
+                    this.count=1
+                },
+                count(val){
+                    if(isNaN(this.count))this.count=1
+                    if(!Number.isInteger(this.count))this.count=Math.floor(val)
+                    if(this.count>3)this.count=3
+                    if(this.count<1)this.count=1
+                } 
+            },
+            data() {
+                return {
+                    count:1,
+                    activeIndex: 0,
+                    pricelist: [480, 690, 880, 1280, 1480]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .star {
+            font-size: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1706049_jntgm7q43vp.css">
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+   <star :count='10' :score='3'></star>
+   <star :count='15' mycolor="red" :score='5'></star>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("star", {
+            props:{
+                count:{
+                    type:Number,
+                    default:5
+                },
+               
+                score:{
+                    type:Number,
+                    default:1
+                },
+                mycolor:{
+                    type:String,
+                    default:'gold'
+                }
+            },
+            data() {
+                return {
+                    myscore:this.score,
+                    mytempscore:this.score
+                }
+            },
+            template: `<div>
+                <i class="star iconfont " :style="{color:mycolor}" :class="item<=mytempscore?'icon-xingxing1':'icon-xingxing'" v-for="item in count"
+        @mouseenter="mytempscore=item" @mouseleave="mytempscore=myscore" @click="myscore=item"></i></div>`
+    })
+        new Vue({
+            el: "#app",
+           
+        })
+    </script>
+</body>
+
+</html>

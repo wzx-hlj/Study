@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .container {
+            margin: 100px auto;
+            width: 500px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .demo li {
+            width: 500px;
+            height: 200px;
+            font-size: 50px;
+            text-align: center;
+            line-height: 200px;
+            color: white;
+        }
+
+        .indexes {
+            display: flex;
+
+            position: absolute;
+            bottom: 10px;
+
+        }
+
+        .indexes li {
+            background: #eee;
+            padding: 5px;
+            margin: 0 5px;
+            border-radius: 50%;
+        }
+
+        .indexes li.active {
+            background: #000;
+        }
+        .arrow{
+            width: 30px;
+            height: 60px;
+            background:gray;
+            position: absolute;
+            
+        }
+        .arrow.left{
+            left: -50px;
+        }
+        .arrow.right{
+            right:-50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="container">
+            <div class="arrow left" @click="prev"></div>
+            <div class="arrow right" @click="next"></div>
+            <ul class="demo">
+                <li v-show="i===activeIndex" :style="{background:item}" v-for="(item,i) in imglist">
+                    {{i+1}}
+                </li>
+            </ul>
+            <ul class="indexes">
+                <li @click="change(i)" v-for="(item,i) in imglist" :class="{active:i===activeIndex}"></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.config.devtool = false
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    timer: -1,
+                    activeIndex: 0,
+                    imglist: ['red', 'green', 'blue', 'yellow']
+                }
+            },
+            mounted() {
+               this.run()
+            },
+            methods: {
+                prev(){
+                    clearInterval(this.timer)
+                    if (--this.activeIndex<0)
+                        this.activeIndex = this.imglist.length-1
+                    this.run()
+                },
+                next(){
+                    clearInterval(this.timer)
+                    if (++this.activeIndex>this.imglist.length-1)
+                        this.activeIndex =0
+                    this.run()
+                },
+                run(){
+                    this.timer = setInterval(() => {
+                    if (++this.activeIndex === this.imglist.length)
+                        this.activeIndex = 0
+                }, 2000)
+                },
+                change(i) {
+                    clearInterval(this.timer)
+                    this.activeIndex = i
+                    this.run()
+                }
+
+            },
+
+        })
+    </script>
+</body>
+
+</html>

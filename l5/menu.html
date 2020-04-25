@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .menu {
+            width: 200px;
+            background: black;
+            height: 100vh;
+        }
+
+        .menu>li.active .title {
+            border-left-color: yellow;
+        }
+
+        .menu .title {
+            padding: 10px 20px;
+            font-size: 15px;
+            color: #eee;
+            border-left: 5px solid transparent;
+            cursor: pointer;
+        }
+
+        .menu .list {
+            background: #2b2b2b;
+        }
+
+        .menu .list>li.active {
+            background: yellow;
+            color: #000;
+        }
+
+        .menu .list li:hover {
+            background: yellowgreen;
+        }
+
+        .menu .list li {
+            padding: 8px 20px;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+        }
+ 
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <ul class="menu">
+            <li v-for="(item,i) in menulist" :class="{active:openMenuIndex===i}">
+                <div class="title" @click="openMenuIndex=i">{{item.name}}</div>
+                <transition name="fade">
+                <ul class="list" v-show="openMenuIndex===i">
+                    <li @click="activeItemIndex=j" v-for="(item1,j) in item.children"
+                        :class="{active:openMenuIndex===i && activeItemIndex===j}">{{item1.name}}</li>
+                </ul>
+            </transition>
+            </li>
+        </ul>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            watch: {
+                openMenuIndex() {
+                    this.activeItemIndex = -1
+                }
+            },
+            data() {
+                return {
+                    openMenuIndex: 0,
+                    activeItemIndex: 0,
+                    menulist: [
+                        {
+                            name: "学员管理",
+                            children: [
+                                {
+                                    name: "学员列表",
+                                },
+                                {
+                                    name: "添加学员",
+                                },
+                                {
+                                    name: "学员统计",
+                                },
+                            ]
+                        },
+                        {
+                            name: "订单管理",
+                            children: [
+                                {
+                                    name: "订单列表",
+                                },
+                                {
+                                    name: "订单统计",
+                                },
+                            ]
+                        },
+                        {
+                            name: "商品管理",
+                            children: [
+                                {
+                                    name: "商品列表",
+                                },
+                                {
+                                    name: "商品统计",
+                                },
+                            ]
+                        },
+                    ]
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

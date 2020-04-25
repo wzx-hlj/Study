@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .star {
+            font-size: 30px;
+            color: red;
+        }
+    </style>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1706049_jntgm7q43vp.css">
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <i class="star iconfont " :class="item<=tempscore?'icon-xingxing1':'icon-xingxing'" v-for="item in count"
+        @mouseenter="tempscore=item" @mouseleave="tempscore=score" @click="score=item"></i>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    count:10,
+                    score:5,
+                    tempscore:5,
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

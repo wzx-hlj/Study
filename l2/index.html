@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大麦</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+        }
+
+        .menu {
+            display: flex;
+            padding: 10px 0;
+        }
+
+        .menu li {
+            padding: 5px 20px;
+
+            margin: 0 10px;
+            border-radius: 3px;
+        }
+
+        .menu li.active {
+            background-color: orangered;
+            color: white;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div style="width: 1000px;border: 1px solid red; margin:100px auto;">
+            <div class="menu">
+                <li>城市:</li>
+                <li @click="activeIndex=i" :class="{active:i===activeIndex}" v-for="(item,i) in citylist">{{item.name}}
+                </li>
+            </div>
+            <div class="menu">
+                <li>类型:</li>
+                <li @click="activeTypeIndex=i" :class="{active:i===activeTypeIndex}" v-for="(item,i) in typelist">
+                    {{item.name}}</li>
+            </div>
+            <ul class="showlist" style="padding: 20px;">
+                <li style="display: flex; padding: 20px 0;" v-for="item in showlist">
+                    <img style="width: 150px;height:200px;" :src="item.verticalPic" alt="">
+                    <div style="padding: 20px;">
+                        <div>【{{item.cityname}}】{{item.name}}</div>
+                        <div>{{item.actors}}</div>
+                        <div>{{item.categoryname}}</div>
+                        <div></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        Vue.config.productionTip = false
+
+
+
+        let vm = new Vue({
+            el: "#app",
+            watch: {
+                activeIndex(){
+                    this.getShowList()
+                },
+                activeTypeIndex(){
+                    this.getShowList()
+                }
+            },
+            created() {
+                this.getShowList()
+            },
+            methods: {
+                getShowList() {
+                    let cityid=this.citylist[this.activeIndex].id
+                    let typeid=this.typelist[this.activeTypeIndex].id
+                    axios.get('show.json').then(res => {
+                        let arr=res.data
+                        if(cityid){
+                            arr=arr.filter(r=>r.cityid===cityid)
+                        }
+                        if(typeid){
+                            arr=arr.filter(r=>r.categoryid===cityid)
+                        }
+
+                        this.showlist = arr
+                    })
+                },
+            },
+            data() {
+                return {
+                    showlist: [],
+                    activeIndex: 1,
+                    citylist: [
+                        {
+                            id: 0,
+                            name: "全部"
+                        },
+                        {
+                            id: 1,
+                            name: "南京"
+                        },
+                        {
+                            id: 2,
+                            name: "上海"
+                        },
+                        {
+                            id: 3,
+                            name: "苏州"
+                        },
+                    ],
+                    activeTypeIndex: 1,
+                    typelist: [
+                        {
+                            id: 0,
+                            name: "全部"
+                        },
+                        {
+                            id: 1,
+                            name: "演唱会"
+                        },
+                        {
+                            id: 2,
+                            name: "戏剧"
+                        },
+                        {
+                            id: 3,
+                            name: "体育比赛"
+                        },
+                    ]
+                }
+            },
+        })
+
+    </script>
+
+</body>
+
+</html>
