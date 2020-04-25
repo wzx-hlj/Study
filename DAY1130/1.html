@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>
+            <button class="minus">-</button>
+            <strong class="amount">1</strong>
+            <button class="plus">+</button>
+            单价：￥<span class="price">24</span> &nbsp;&nbsp;
+            总价：￥<em class="total"></em>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <strong class="amount">1</strong>
+            <button class="plus">+</button>
+            单价：￥<span class="price">33.5</span> &nbsp;&nbsp;
+            总价：￥<em class="total"></em>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <strong class="amount">1</strong>
+            <button class="plus">+</button>
+            单价：￥<span class="price">11.3</span> &nbsp;&nbsp;
+            总价：￥<em class="total"></em>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <strong class="amount">1</strong>
+            <button class="plus">+</button>
+            单价：￥<span class="price">14</span> &nbsp;&nbsp;
+            总价：￥<em class="total"></em>
+        </li>
+
+
+    </ul>
+    <script>
+        var list = document.querySelector("#list");
+        var myli = list.querySelectorAll("li");
+
+        for (let i = 0; i < myli.length; i++) {
+            fn(myli[i]);
+        }
+
+        
+        function fn(aaa) {
+            var plus = aaa.querySelector(".plus");
+            var minus = aaa.querySelector(".minus");
+            var amount = aaa.querySelector(".amount");
+            var total = aaa.querySelector(".total");
+            var price = aaa.querySelector(".price");
+            var num = 1;
+
+            total.innerHTML = price.innerHTML;
+            plus.onclick = function () {
+                num++;
+                amount.innerHTML = num;
+                total.innerHTML = num * parseFloat(price.innerHTML);
+            }
+
+            minus.onclick = function () {
+                num--;
+                if (num < 1) {
+                    alert("不能再减了");
+                    num = 1;
+                } else {
+                    amount.innerHTML = num;
+                    total.innerHTML = num * parseFloat(price.innerHTML);
+                }
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>

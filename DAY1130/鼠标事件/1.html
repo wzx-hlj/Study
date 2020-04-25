@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li{
+            line-height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li onclick="changeColor(this)">点我变色</li>
+        <li>双击有惊喜！！！</li>
+        <li>鼠标滑过字体变大，鼠标离开字体变小</li>
+        <li>鼠标按下文字变为红色，鼠标按键松开文字变为绿色</li>
+        <li>鼠标移动效果</li>
+    </ul>
+    <script>
+        var mylist = document.querySelector("#list");
+        var myli = mylist.querySelectorAll("li");
+
+        function changeColor(obj){
+            console.log(obj)
+            obj.style.backgroundColor = "red";
+        }
+
+        myli[1].ondblclick = function(){
+            this.style.cssText = "color:pink"
+        }   
+        
+        myli[2].onmouseover = function(){
+            this.style.fontSize = "30px"
+        }
+        myli[2].onmouseout = function(){
+            myli[2].style.fontSize = "10px"
+        }
+
+        myli[3].addEventListener('mousedown',function(){
+            this.style.color = "red";
+        },false);
+
+        myli[3].addEventListener('mouseup',function(){
+            this.style.color = "green";
+        },false);
+        
+        myli[4].onmousemove = function(){
+            console.log(1);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 1500px;
+            background-color: pink;
+        }
+        .kefu {
+            width: 150px;
+            height: 100px;
+            padding-top: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+            position: fixed;
+            top: 200px;
+            right: 0;
+            background-color: #fff;
+            display: none;
+        }
+        .kefu img{
+            height: 33px;
+        }
+        .bar {
+            width: 28px;
+            height: 95px;
+            position: fixed;
+            top: 200px;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="kefu">
+        <img src="img/qq.png" alt="">
+        <img src="img/qq.png" alt="">
+    </div>
+    <div class="bar">
+        <img src="img/right_bar.jpg" alt="">
+    </div>
+    <script>
+        // onmouseover	 鼠标经过事件
+        // onmouseout	 鼠标离开事件
+
+        // onmouseenter	 鼠标经过事件
+        // onmouseleave	 鼠标离开事件
+
+
+        var mykf = document.querySelector(".kefu");
+        var mybar = document.querySelector(".bar");
+        mybar.onmouseenter = function(){
+            this.style.display = "none";
+            mykf.style.display = "block";
+        }
+        mykf.onmouseleave = function(){
+            mybar.style.display = "block";
+            this.style.display = "none";
+        }
+
+    </script>
+</body>
+</html>

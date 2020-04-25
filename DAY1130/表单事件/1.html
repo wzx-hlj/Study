@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- select  当用户选择（文本框或文本域）中的一个或多个字符触发 -->
+    <form action="http://baidu.com" method="post">  
+        用户名：<input type="text"><br>
+        密码：<input type="text"><br>
+        请输入：<input type="text"><br>
+        介绍：<br><textarea name="" id="" cols="30" rows="10"></textarea>
+        <br> 居住地：<br>
+        <select name="" id="sel">
+            <option value="北京">北京</option>
+            <option value="南京">南京 </option>
+            <option value="上海">上海</option>
+        </select>
+        <br><br>
+        <input type="reset">
+        <input type="submit">
+    </form>
+    <script>
+    var myinput = document.querySelectorAll('input');
+    var myt = document.querySelector('textarea');
+    myinput[0].addEventListener("focus",function(){
+        this.style.backgroundColor = "red";
+    });
+
+    myinput[1].addEventListener("blur",function(){
+        this.value = this.value.toUpperCase();
+    })
+
+    myinput[2].addEventListener("select",function(){
+        alert("你选中了文本")
+    })
+
+    myt.onchange = function(){
+        alert("改变了内容");
+    }
+
+    document.querySelector("#sel").onchange = function(){
+        alert("你选中了" + this.value)
+    }
+
+    var myForm = document.querySelector("form");
+    myForm.onreset = function(e){
+        var result = confirm("你真的要重置吗！");
+        if (result) {
+            alert("表单已重置");
+        } else {
+            e.preventDefault();
+        }
+    }
+
+    myForm.onsubmit = function(){
+        alert("表单已提交")
+    }
+    </script>
+</body>
+</html>
