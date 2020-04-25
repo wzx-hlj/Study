@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>点我</button>
+    <script>
+        // currentTarget 注册这个事件监听的对象
+        // target 对事件起源目标的引用。
+        var btn = document.querySelector("button");
+        // btn.onclick = function(e){
+        //     console.log(this); // button
+        //     console.log(e.target); // button
+        //     console.log(e.currentTarget); // button
+        // }
+
+
+        document.body.onclick = function(e){
+            console.log(e.target); // button
+            console.log(e.currentTarget); // body
+        }
+
+    </script>
+</body>
+</html>
